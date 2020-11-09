@@ -28,4 +28,4 @@ ng new NOMBRE_APP
 
 ### Crear componente:
 
-ng generate component saludador
+ng generate component NOMBRE_COMPONENTE
