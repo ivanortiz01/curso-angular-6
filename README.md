@@ -1,29 +1,31 @@
-# README #
+# Cursos Angular. Universidad Austral
 
-This README would normally document whatever steps are necessary to get your application up and running.
+[Curso](https://www.coursera.org/learn/desarrollar-paginas-web-con-angular/home/welcome)
 
-### What is this repository for? ###
+## Herramientas:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+NVM:
 
-### How do I get set up? ###
+Node version manager. Gestor paquetes nodejs. [Aquí](https://github.com/coreybutler/nvm-windows)
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+NodeJS
 
-### Contribution guidelines ###
+NPM
 
-* Writing tests
-* Code review
-* Other guidelines
+Typescript
 
-### Who do I talk to? ###
+npm i -g typescript
 
-* Repo owner or admin
-* Other community or team contact
+@angular/cli:
+
+npm i -g @angular/cli
+
+# Comandos
+
+### Crear app:
+
+ng new NOMBRE_APP
+
+### Crear componente:
+
+ng generate component saludador
