@@ -6,18 +6,48 @@ import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/s
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
-import { DestinoViajeComponent } from './destino-viaje/destino-viaje.component';
-import { ListaDestinosComponent } from './lista-destinos/lista-destinos.component';
-import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
+import { DestinoViajeComponent } from './components/destino-viaje/destino-viaje.component';
+import { ListaDestinosComponent } from './components/lista-destinos/lista-destinos.component';
+import { DestinoDetalleComponent } from './components/destino-detalle/destino-detalle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-viaje.component';
-import { DestinoApiClient } from './models/destino-api-client.model';
+import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
 import { DestinosViajesState, reducerDestinosViajes, intializeDestinosViajesState, DestinosViajesEffects } from './models/destinos-viajes-state.model';
+import { LoginComponent } from './components/login/login/login.component';
+import { ProtectedComponent } from './components/protected/protected/protected.component';
+import { UsuarioLogueadoGuard } from './guards/usuario-logueado/usuario-logueado.guard';
+import { AuthService } from './services/auth.service';
+import { VuelosComponentComponent } from './components/vuelos/vuelos-component/vuelos-component.component';
+import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
+import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
+import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
+import { CommonModule } from '@angular/common';
+import { ReservasModule } from './reservas/reservas.module';
 
+//rutas anidadas o hijas
+export const childrenRoutesVuelos: Routes = [
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: 'main', component: VuelosMainComponentComponent },
+  { path: 'mas-info', component: VuelosMasInfoComponentComponent },
+  { path: ':id', component: VuelosDetalleComponentComponent },
+];
 const routes: Routes = [
-  { path: "", redirectTo: "home", pathMatch: 'full' },
-  { path: "home", component: ListaDestinosComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: ListaDestinosComponent },
   { path: "destino", component: DestinoDetalleComponent },
+  { path: 'destino/:id', component: DestinoDetalleComponent },
+  //{path: 'destino', component:DestinoDetalleComponent},
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'protected',
+    component: ProtectedComponent,
+    canActivate: [UsuarioLogueadoGuard]
+  },
+  {
+    path: 'vuelos',
+    component: VuelosComponentComponent,
+    canActivate: [UsuarioLogueadoGuard],
+    children: childrenRoutesVuelos
+  }
 ];
 
 //Redux init
@@ -39,9 +69,16 @@ let reducersInitialState = {
     DestinoViajeComponent,
     ListaDestinosComponent,
     DestinoDetalleComponent,
-    FormDestinoViajeComponent    
+    FormDestinoViajeComponent,
+    LoginComponent,
+    ProtectedComponent,
+    VuelosComponentComponent,
+    VuelosMainComponentComponent,
+    VuelosMasInfoComponentComponent,
+    VuelosDetalleComponentComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -54,10 +91,12 @@ let reducersInitialState = {
       }
     }),
     EffectsModule.forRoot([DestinosViajesEffects]),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    ReservasModule
   ],
   providers: [
-    DestinoApiClient
+    AuthService,
+    UsuarioLogueadoGuard
   ],
   bootstrap: [AppComponent]
 })

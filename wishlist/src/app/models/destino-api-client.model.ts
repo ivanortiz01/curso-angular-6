@@ -7,8 +7,18 @@ import { ElegidoFavoritoAction, NuevoDestinoAction } from './destinos-viajes-sta
 @Injectable()
 export class DestinoApiClient {
 
+  destinos: DestinoViaje[] = [];
+
   constructor(private store: Store<AppState>) {
-    
+
+  }
+
+  getById(id: String): DestinoViaje {
+    return this.destinos.filter((d) => { return d.id.toString() == id; })[0]
+  }
+
+  getAll(): DestinoViaje[] {
+    return this.destinos;
   }
 
   add(d: DestinoViaje) {
