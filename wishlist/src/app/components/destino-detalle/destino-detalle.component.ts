@@ -22,17 +22,17 @@ const APP_CONFIG_VALUE: AppConfig = {
 
 const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
-@Injectable()
-class DestinosApiClientDecorated extends DestinoApiClient {
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, store: Store<AppState>) {
-   super(store); 
-  }
-  getById(id: String): DestinoViaje {
-    console.log('llamando por la clase decorada');
-    console.log('config: '+ this.config.apiEndPoint);
-    return super.getById(id);
-  }
-}
+// @Injectable()
+// class DestinosApiClientDecorated extends DestinoApiClient {
+//   constructor(@Inject(APP_CONFIG) private config: AppConfig, store: Store<AppState>) {
+//    super(store); 
+//   }
+//   getById(id: String): DestinoViaje {
+//     console.log('llamando por la clase decorada');
+//     console.log('config: '+ this.config.apiEndPoint);
+//     return super.getById(id);
+//   }
+// }
 
 @Component({
   selector: 'app-destino-detalle',
@@ -40,7 +40,7 @@ class DestinosApiClientDecorated extends DestinoApiClient {
   styleUrls: ['./destino-detalle.component.css'],
   providers: [
     {provide: APP_CONFIG, useValue: APP_CONFIG_VALUE},
-    {provide: DestinoApiClient, useClass: DestinosApiClientDecorated},
+    // {provide: DestinoApiClient, useClass: DestinosApiClientDecorated},
     {provide: DestinosApiClientViejo, useExisting: DestinoApiClient}],
 })
 export class DestinoDetalleComponent implements OnInit {
