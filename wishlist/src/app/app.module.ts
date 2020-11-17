@@ -25,6 +25,9 @@ import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-deta
 import { CommonModule } from '@angular/common';
 import { ReservasModule } from './reservas/reservas.module';
 
+import Dexie from 'dexie';
+import { DestinoViaje } from './models/destino-viajes.model';
+
 // app config
 export interface AppConfig {
   apiEndpoint: String;
@@ -38,6 +41,27 @@ export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 export function init_app(appLoadService: AppLoadService): () => Promise<any>  {
   return () => appLoadService.intializeDestinosViajesState();
 }
+
+// dexie db
+export class Translation {
+  constructor(public id: number, public lang: string, public key: string, public value: string) {}
+}
+export class MyDatabase extends Dexie {
+  destinos: Dexie.Table<DestinoViaje, number>;
+  translations: Dexie.Table<Translation, number>;
+  constructor () {
+      super('MyDatabase');
+      this.version(1).stores({
+        destinos: '++id, nombre, imagenUrl'
+      });
+      this.version(2).stores({
+        destinos: '++id, nombre, imagenUrl',
+        translations: '++id, lang, key, value'
+      });
+  }
+}
+
+export const db = new MyDatabase();
 
 @Injectable()
 class AppLoadService {
@@ -127,7 +151,8 @@ let reducersInitialState = {
     UsuarioLogueadoGuard,
     { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE },
     AppLoadService,
-    { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true },
+    MyDatabase
   ], 
   bootstrap: [AppComponent]
 })
