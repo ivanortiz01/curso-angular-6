@@ -1,14 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DestinoViaje } from '../models/destino-viajes.model';
-import { DestinoApiClient } from '../models/destino-api-client.model';
+import { DestinoViaje } from '../../models/destino-viajes.model';
+import { DestinoApiClient } from '../../models/destino-api-client.model';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.module';
-import { ElegidoFavoritoAction, NuevoDestinoAction } from '../models/destinos-viajes-state.model';
+import { AppState } from '../../app.module';
+import { ElegidoFavoritoAction, NuevoDestinoAction } from '../../models/destinos-viajes-state.model';
 
 @Component({
   selector: 'app-lista-destinos',
   templateUrl: './lista-destinos.component.html',
-  styleUrls: ['./lista-destinos.component.css']
+  styleUrls: ['./lista-destinos.component.css'],
+  providers: [ DestinoApiClient ]
 })
 export class ListaDestinosComponent implements OnInit {
 
