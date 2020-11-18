@@ -45,12 +45,27 @@ const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 })
 export class DestinoDetalleComponent implements OnInit {
   destino: DestinoViaje;
-
-  constructor(private route: ActivatedRoute, private destinosApiClient: DestinosApiClientViejo) { }
-
+  style = {
+    sources: {
+      world: {
+        type: "geojson",
+        data: "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"
+      }
+    },
+    version: 8,
+    layers: [{
+      "id": "countries",
+      "type": "fill",
+      "source": "world",
+      "layout": {},
+      "paint": {
+        'fill-color': '#6F788A'
+      }
+    }]
+  };
+  constructor(private route: ActivatedRoute, private destinosApiClient: DestinoApiClient) { }
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('id');
     this.destino = this.destinosApiClient.getById(id);
   }
-
 }
