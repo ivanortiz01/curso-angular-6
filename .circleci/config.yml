@@ -6,7 +6,6 @@ jobs:
       - image: circleci/node:8-browsers
     steps:
       - checkout:
-        path: ~/whishlist
       - restore_cache:
           key: whishlist-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm install
