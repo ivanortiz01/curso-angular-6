@@ -29,3 +29,11 @@ ng new NOMBRE_APP
 ### Crear componente:
 
 ng generate component NOMBRE_COMPONENTE
+
+# Map Box:
+
+[aqui](https://github.com/Wykks/ngx-mapbox-gl)
+
+npm i --save ngx-mapbox-gl mapbox-gl@1.11.1
+
+npm i --save-dev @types/mapbox-gl@1.11.1

@@ -4,6 +4,8 @@ import { APP_INITIALIZER, Injectable, InjectionToken, NgModule } from '@angular/
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule, HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 
@@ -31,6 +33,8 @@ import { DestinoViaje } from './models/destino-viajes.model';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+import { EspiameDirective } from './espiame.directive';
+import { TrackearClickDirective } from './trackear-click.directive';
 
 // app config
 export interface AppConfig {
@@ -165,7 +169,9 @@ let reducersInitialState = {
     VuelosComponentComponent,
     VuelosMainComponentComponent,
     VuelosMasInfoComponentComponent,
-    VuelosDetalleComponentComponent
+    VuelosDetalleComponentComponent,
+    EspiameDirective,
+    TrackearClickDirective
   ],
   imports: [
     CommonModule,
@@ -190,7 +196,9 @@ let reducersInitialState = {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    })
+    }),
+    NgxMapboxGLModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,

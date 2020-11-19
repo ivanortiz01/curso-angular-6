@@ -1,8 +1,18 @@
 <p>
-    Aqui vemos el detalle de un destino de un viaje!
-    
-      <br>
-      {{ destino.id }}
-      <br>
-      {{ destino.nombre }}    
-  </p>
+  Aqui vemos el detalle de un destino de un viaje!
+
+  <br>
+  {{ destino.id }}
+  <br>
+  {{ destino.nombre }}
+</p>
+
+<hr />
+
+<mgl-map [style]="style" [zoom]="[2]">
+  <mgl-marker [lngLat]="[-75.551012, 10.421185]">
+    <div onclick="alert('Hola')" class="marker">
+      <b>¡Hola mundo!</b>
+    </div>
+  </mgl-marker>
+</mgl-map>
